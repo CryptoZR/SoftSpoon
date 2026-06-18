@@ -489,7 +489,7 @@ geth-classic --classic --datadir ~/Library/Ethereum/softspoon-work \
 // 确认 1428756 的哈希（信任锚的父块）
 eth.getBlock(1428756).hash
 // 回滚链头到 1428756，删除其后的真实 ETC 区块
-debug.setHead("0x15CF94")   // 0x15CF94 == 1428756
+debug.setHead("0x15CD14")   // 0x15CD14 == 1428756
 eth.blockNumber              // 应为 1428756
 exit
 ```
@@ -546,7 +546,7 @@ admin.nodeInfo.protocols.eth.network             // 2517
 - [ ] TrustedCheckpoint 已回填并重新编译：是 / 否
 ````
 
-- [ ] **Step 2: 通读校验**（确认每条命令完整、无 `TODO`/占位符；`0x15CF94` 等十六进制与十进制对应正确）
+- [ ] **Step 2: 通读校验**（确认每条命令完整、无 `TODO`/占位符；`0x15CD14`==1428756 等十六进制与十进制对应正确）
 
 - [ ] **Step 3: 提交**
 
