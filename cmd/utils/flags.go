@@ -167,6 +167,11 @@ var (
 		Usage:    "Ethereum Classic network: pre-configured Ethereum Classic mainnet",
 		Category: flags.EthCategory,
 	}
+	SoftSpoonFlag = &cli.BoolFlag{
+		Name:     "softspoon",
+		Usage:    "Soft Spoon network: Ethereum forked just before the theDAO contract (block 1428757), permanent PoW",
+		Category: flags.EthCategory,
+	}
 	MainnetFlag = &cli.BoolFlag{
 		Name:     "mainnet",
 		Usage:    "Ethereum mainnet",
@@ -1130,6 +1135,7 @@ var (
 	NetworkFlags = append([]cli.Flag{
 		MainnetFlag,
 		ClassicFlag,
+		SoftSpoonFlag,
 		MintMeFlag,
 	}, TestnetFlags...)
 
@@ -1207,6 +1213,8 @@ func setBootstrapNodes(ctx *cli.Context, cfg *p2p.Config) {
 		switch {
 		case ctx.Bool(ClassicFlag.Name):
 			urls = params.ClassicBootnodes
+		case ctx.Bool(SoftSpoonFlag.Name):
+			urls = nil // private art-chain: no public bootnodes
 		case ctx.Bool(MintMeFlag.Name):
 			urls = params.MintMeBootnodes
 		case ctx.Bool(MordorFlag.Name):
@@ -1687,6 +1695,8 @@ func dataDirPathForCtxChainConfig(ctx *cli.Context, baseDataDirPath string) stri
 	switch {
 	case ctx.Bool(ClassicFlag.Name):
 		return filepath.Join(baseDataDirPath, "classic")
+	case ctx.Bool(SoftSpoonFlag.Name):
+		return filepath.Join(baseDataDirPath, "softspoon")
 	case ctx.Bool(MordorFlag.Name):
 		return filepath.Join(baseDataDirPath, "mordor")
 	case ctx.Bool(SepoliaFlag.Name):
@@ -1945,7 +1955,7 @@ func CheckExclusive(ctx *cli.Context, args ...interface{}) {
 // SetEthConfig applies eth-related command line flags to the config.
 func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 	// Avoid conflicting network flags
-	CheckExclusive(ctx, MainnetFlag, DeveloperFlag, DeveloperPoWFlag, SepoliaFlag, ClassicFlag, MordorFlag, MintMeFlag, HoleskyFlag)
+	CheckExclusive(ctx, MainnetFlag, DeveloperFlag, DeveloperPoWFlag, SepoliaFlag, ClassicFlag, MordorFlag, MintMeFlag, HoleskyFlag, SoftSpoonFlag)
 	CheckExclusive(ctx, LightServeFlag, SyncModeFlag, "light")
 	CheckExclusive(ctx, DeveloperFlag, DeveloperPoWFlag, ExternalSignerFlag) // Can't use both ephemeral unlocked and external signer
 
@@ -2504,6 +2514,8 @@ func genesisForCtxChainConfig(ctx *cli.Context) *genesisT.Genesis {
 		genesis = params.DefaultGenesisBlock()
 	case ctx.Bool(ClassicFlag.Name):
 		genesis = params.DefaultClassicGenesisBlock()
+	case ctx.Bool(SoftSpoonFlag.Name):
+		genesis = params.DefaultPreDAOForkGenesisBlock()
 	case ctx.Bool(MordorFlag.Name):
 		genesis = params.DefaultMordorGenesisBlock()
 	case ctx.Bool(SepoliaFlag.Name):

@@ -350,6 +350,9 @@ func checkMainnet(ctx *cli.Context) bool {
 	case ctx.IsSet(utils.ClassicFlag.Name):
 		log.Info("Starting Geth on Ethereum Classic...")
 
+	case ctx.IsSet(utils.SoftSpoonFlag.Name):
+		log.Info("Starting Geth on Soft Spoon (pre-theDAO fork)...")
+
 	case ctx.IsSet(utils.MordorFlag.Name):
 		log.Info("Starting Geth on Mordor testnet...")
 
