@@ -546,7 +546,7 @@ var (
 var (
 	softSpoonChainID            = big.NewInt(2517)
 	softSpoonForkBlock          = big.NewInt(1_428_757)
-	softSpoonForkInitDifficulty = big.NewInt(0x20000000) // ≈5.4e8; tune down for CPU minting (floor: vars.MinimumDifficulty)
+	softSpoonForkInitDifficulty = big.NewInt(0x100000) // 1048576; MUST match the minted canonical block 1428757's difficulty (CPU-mineable; floor: vars.MinimumDifficulty=131072)
 )
 
 // Exported for fuzzing

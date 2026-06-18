@@ -69,14 +69,36 @@ admin.nodeInfo.protocols.eth.network             // 2517
   ```
 
 ## 6. 固化 TrustedCheckpoint（阶段 B，可选但推荐）
-当链增长越过分叉点之后的一个 CHT section 边界（每 32768 块一段）后，用 core-geth
-自带的 checkpoint 工具算出该段的 `{SectionIndex, SectionHead, CHTRoot, BloomRoot}`，
-填入 `params/config_softspoon.go` 的 `PreDAOForkChainConfig.TrustedCheckpoint`，
-然后 `make geth` 重新编译并发布。CHTRoot 在密码学上承诺了 0…SectionHead 间每个区块哈希
-（含 1428757），因此该 checkpoint 即作为全网信任根钉死了分叉链。
+
+> 重要：本版 core-geth 已移除 `light/`、`les/` 轻客户端栈，**不存在** CHT 生成工具
+> （`ChtIndexer` / `checkpoint-admin` 都没有），也**无法**计算 `CHTRoot` / `BloomRoot`。
+> 全节点的 checkpoint 校验（`eth/handler.go`）只使用 `SectionIndex` 与 `SectionHead`
+> 两个字段——它在 snap sync 时向对端索要 `SectionHead` 高度的 header 并校验哈希一致，
+> `CHTRoot`/`BloomRoot` 从不被读取，留零值即可。钉死 `SectionHead` 的哈希即沿
+> parent-hash 链条锚定了包含 1428757 在内的整条历史。
+
+CHT 每段 `CHTFrequency = 32768`。包含 1428757 的是 **section 43**（覆盖 `[1409024, 1441791]`），
+其 SectionHead 高度 = `(43+1)×32768 − 1` = **1441791**。
+
+步骤：
+1. 挖到区块 **1441791**（单矿工私链无重排，head 一到即可，无需额外确认数）。
+2. 取该块哈希：
+   ```javascript
+   eth.getBlock(1441791).hash   // 记为 <SECTIONHEAD_HASH>
+   ```
+3. 回填 `params/config_softspoon.go` 的 `PreDAOForkChainConfig`：
+   ```go
+   TrustedCheckpoint: &ctypes.TrustedCheckpoint{
+       SectionIndex: 43,
+       SectionHead:  common.HexToHash("0x<SECTIONHEAD_HASH>"),
+       // CHTRoot / BloomRoot: 全节点不使用，留零值
+   },
+   ```
+   （需在 `config_softspoon.go` 导入 `common` 与 `ctypes`。）
+4. `make geth` 重新编译并发布。
 
 ## 发布清单
-- [ ] 1428757 规范哈希：__________
-- [ ] softSpoonForkInitDifficulty 实际取值：__________
+- [x] 1428757 规范哈希：`0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564`
+- [x] 1428757 难度（== `softSpoonForkInitDifficulty`）：`1048576`（`0x100000`）
 - [ ] 链镜像文件：__________
-- [ ] TrustedCheckpoint 已回填并重新编译：是 / 否
+- [ ] TrustedCheckpoint 已回填（SectionIndex=43, SectionHead=block 1441791 hash）并重新编译：是 / 否
