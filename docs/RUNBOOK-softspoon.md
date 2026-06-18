@@ -1,7 +1,9 @@
 # Soft Spoon 运行手册
 
 > 所有操作在 ETC archive 库的**副本**上进行，切勿改动已同步的原库。
-> 假设已编译出含 `--softspoon` 的新二进制 `build/bin/geth`，以及一份**原版** core-geth 二进制（用于截断），记作 `geth-classic`。
+> 只需一个二进制：`make geth` 编译出的 `build/bin/geth`。它**同时支持** `--classic`（沿用未改动的 ClassicChainConfig）和 `--softspoon`。截断步骤用 `--classic`、铸造步骤用 `--softspoon`，无需另外准备"原版"二进制。
+>
+> 为什么截断用 `--classic` 而非 `--softspoon`：截断时库里存的链配置就是 classic，用 `--classic` 运行配置完全一致、不触发任何兼容性回滚；之后切到 `--softspoon` 时，两套配置的首个差异点在 1428757（> 截断后的 head 1428756），故同样不会强制回滚。
 
 ## 0. 前提
 - ETC archive node 已同步至 1428756 之后，数据在 `~/Library/Ethereum/classic/geth`。
@@ -12,10 +14,10 @@
 cp -a ~/Library/Ethereum/classic ~/Library/Ethereum/softspoon-work
 ```
 
-## 2. 用原版 classic 二进制截断到 1428756
-启动控制台：
+## 2. 用 `--classic` 截断到 1428756
+启动控制台（同一个 `build/bin/geth`，这一步用 `--classic`）：
 ```bash
-geth-classic --classic --datadir ~/Library/Ethereum/softspoon-work \
+build/bin/geth --classic --datadir ~/Library/Ethereum/softspoon-work \
   --syncmode full --gcmode archive --maxpeers 0 --nodiscover console
 ```
 在控制台中：
