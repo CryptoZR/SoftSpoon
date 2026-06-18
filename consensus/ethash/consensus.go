@@ -365,6 +365,12 @@ func CalcDifficulty(config ctypes.ChainConfigurator, time uint64, parent *types.
 	next := new(big.Int).Add(parent.Number, big1)
 	out := new(big.Int)
 
+	// Soft Spoon: one-time difficulty reset at the fork block, only for chainID 2517.
+	if cid := config.GetChainID(); cid != nil && cid.Cmp(softSpoonChainID) == 0 &&
+		next.Cmp(softSpoonForkBlock) == 0 {
+		return new(big.Int).Set(softSpoonForkInitDifficulty)
+	}
+
 	// TODO (meowbits): do we need this?
 	// if config.IsEnabled(config.GetEthashTerminalTotalDifficulty, next) {
 	// 	return big.NewInt(1)
@@ -531,6 +537,16 @@ var (
 	big1       = big.NewInt(1)
 	big2       = big.NewInt(2)
 	bigMinus99 = big.NewInt(-99)
+)
+
+// Soft Spoon (pre-theDAO art fork) difficulty parameters. The one-time reset at the
+// fork block cannot be expressed via chain config, so it is applied here and gated by
+// ChainID so no other network (Classic=61, mainnet=1, Mordor, ...) is affected.
+// Keep softSpoonForkBlock in sync with params.PreDAOForkChainConfig (EIP155Block/DisposalBlock).
+var (
+	softSpoonChainID            = big.NewInt(2517)
+	softSpoonForkBlock          = big.NewInt(1_428_757)
+	softSpoonForkInitDifficulty = big.NewInt(0x20000000) // ≈5.4e8; tune down for CPU minting (floor: vars.MinimumDifficulty)
 )
 
 // Exported for fuzzing
