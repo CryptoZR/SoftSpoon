@@ -1,91 +1,192 @@
-## CoreGeth: An Ethereum Protocol Provider
+<p align="right"><strong>English</strong> | <a href="#zh">中文</a></p>
 
-> An [ethereum/go-ethereum](https://github.com/ethereum/go-ethereum) downstream effort to make the Ethereum Protocol accessible and extensible for a diverse ecosystem.
+<a name="en"></a>
 
-Priority is given to reducing opinions around chain configuration, IP-based feature implementations, and API predictability.
-Upstream development from [ethereum/go-ethereum](https://github.com/ethereum/go-ethereum) is merged to this repository regularly,
- usually at every upstream tagged release. Every effort is made to maintain seamless compatibility with upstream source, including compatible RPC, JS, and CLI
- APIs, data storage locations and schemas, and, of course, interoperable node protocols. Applicable bug reports, bug fixes, features, and proposals should be
- made upstream whenever possible.
+# Soft Spoon — Node Deployment Guide
 
-[![OpenRPC](https://img.shields.io/static/v1.svg?label=OpenRPC&message=1.14.0&color=blue)](#openrpc-discovery)
-[![API Reference](https://camo.githubusercontent.com/915b7be44ada53c290eb157634330494ebe3e30a/68747470733a2f2f676f646f632e6f72672f6769746875622e636f6d2f676f6c616e672f6764646f3f7374617475732e737667)](https://godoc.org/github.com/etclabscore/core-geth)
-[![Go Report Card](https://goreportcard.com/badge/github.com/etclabscore/core-geth)](https://goreportcard.com/report/github.com/etclabscore/core-geth)
-[![Travis](https://travis-ci.org/etclabscore/core-geth.svg?branch=master)](https://travis-ci.org/etclabscore/core-geth)
-[![Gitter](https://badges.gitter.im/core-geth/community.svg)](https://gitter.im/core-geth/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+> Soft Spoon is an art project: a fork of Ethereum at the block right before the
+> theDAO contract was deployed (fork block **1428757**), kept permanent PoW.
+> This guide is for **operators who want to run / mine a node** on the existing
+> chain. It does **not** cover one-time chain creation (truncation / minting) —
+> that has already been done by the project; you only need to obtain the chain
+> and run a node.
 
-## Network/provider comparison
+## 1. Network parameters
 
-Networks supported by the respective go-ethereum packaged `geth` program.
+| Item | Value |
+|------|-------|
+| Network name (flag) | `--softspoon` |
+| Chain ID | `2517` |
+| Network ID | `2517` |
+| Consensus | Ethash PoW (permanent, no Merge) |
+| Genesis hash | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
+| Fork block (first self-mined) | `1428757` |
+| Fork block `1428757` hash | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
+| Fork block `1428757` difficulty | `1048576` (`0x100000`) |
+| Trusted checkpoint | `<TBD — to be filled in>` |
 
-| Ticker | Consensus         | Network                               | core-geth                                                | ethereum/go-ethereum |
-| ---    | ---               | ---                                   | ---                                                      | ---                  |
-| ETC    | :zap:             | Ethereum Classic                      | :heavy_check_mark:                                       |                      |
-| ETH    | :zap:             | Ethereum (Foundation)                 | :heavy_check_mark:                                       | :heavy_check_mark:   |
-| -      | :zap: :handshake: | Private chains                        | :heavy_check_mark:                                       | :heavy_check_mark:   |
-|        | :zap:             | Mordor (Geth+Parity ETH PoW Testnet)  | :heavy_check_mark:                                       |                      |
-|        | :zap:             | Morden (Geth+Parity ETH PoW Testnet)  |                                                          |                      |
-|        | :zap:             | Ropsten (Geth+Parity ETH PoW Testnet) | :heavy_check_mark:                                       | :heavy_check_mark:   |
-|        | :handshake:       | Rinkeby (Geth-only ETH PoA Testnet)   | :heavy_check_mark:                                       | :heavy_check_mark:   |
-|        | :handshake:       | Kovan (Parity-only ETH PoA Testnet)   |                                                          |                      |
-|        |                   | Tobalaba (EWF Testnet)                |                                                          |                      |
-|        |                   | Ephemeral development PoA network     | :heavy_check_mark:                                       | :heavy_check_mark:   |
-| MINTME | :zap:             | MintMe.com Coin                       | :heavy_check_mark:                                       |                      |
+## 2. Build
 
-- :zap: = __Proof of Work__
-- :handshake: = __Proof of Authority__
+Requires Go 1.21+ and a C toolchain (gcc/clang), git, make.
 
-<a name="ellaism-footnote">1</a>: This is originally an [Ellaism
-Project](https://github.com/ellaism). However, A [recent hard
-fork](https://github.com/ellaism/specs/blob/master/specs/2018-0003-wasm-hardfork.md)
-makes Ellaism not feasible to support with go-ethereum any more. Existing
-Ellaism users are asked to switch to
-[Parity](https://github.com/paritytech/parity).
+```bash
+git clone https://github.com/CryptoZR/SoftSpoon.git
+cd SoftSpoon
+make geth
+# binary at ./build/bin/geth
+```
 
-<a name="configuration-capable">2</a>: Network not supported by default, but network configuration is possible. Make a PR!
+## 3. Obtain the chain
 
-## Documentation
+You need the chain data up to and beyond the fork block `1428757`. Two ways:
 
-- CoreGeth documentation is available [here](https://etclabscore.github.io/core-geth).
-  + Getting Started [Installation](https://etclabscore.github.io/core-geth/getting-started/installation) and [CLI](https://etclabscore.github.io/core-geth/getting-started/run-cli)
-  + [JSONRPC API](https://etclabscore.github.io/core-geth/JSON-RPC-API)
-  + [Developers](https://etclabscore.github.io/core-geth/developers/build-from-source)
-  + [Tutorials](https://etclabscore.github.io/core-geth/tutorials/private-network)
-- Further [ethereum/go-ethereum](https://github.com/ethereum/go-ethereum) documentation about can be found [here](https://geth.ethereum.org/docs/).
-- Documentation about documentation lives [here](./docs/developers/documentation.md).
+### Option A — Restore from the published chain image (recommended, fastest)
 
-## Contribution
+```bash
+# Download the image (URL TBD)
+curl -L -o softspoon-chain.tar.gz "<IMAGE_URL — to be filled in>"
 
-Thank you for considering to help out with the source code! We welcome contributions
-from anyone on the internet, and are grateful for even the smallest of fixes!
+# Extract into your Ethereum data root (creates the softspoon datadir)
+tar -C ~/Library/Ethereum -xzf softspoon-chain.tar.gz
+# Linux default root: ~/.ethereum
+```
 
-If you'd like to contribute to core-geth, please fork, fix, commit and send a pull request
-for the maintainers to review and merge into the main code base. If you wish to submit
-more complex changes though, please check up with the core devs first on [our gitter channel](https://gitter.im/etclabscore/core-geth)
-to ensure those changes are in line with the general philosophy of the project and/or get
-some early feedback which can make both your efforts much lighter as well as our review
-and merge procedures quick and simple.
+### Option B — Sync from the network
 
-Please make sure your contributions adhere to our coding guidelines:
+Sync from a project bootnode. Trust is anchored by the hardcoded
+`TrustedCheckpoint` baked into the binary, so snap sync is safe.
 
- * Code must adhere to the official Go [formatting](https://golang.org/doc/effective_go.html#formatting)
-   guidelines (i.e. uses [gofmt](https://golang.org/cmd/gofmt/)).
- * Code must be documented adhering to the official Go [commentary](https://golang.org/doc/effective_go.html#commentary)
-   guidelines.
- * Pull requests need to be based on and opened against the `master` branch.
- * Commit messages should be prefixed with the package(s) they modify.
-   * E.g. "eth, rpc: make trace configs optional"
+```bash
+./build/bin/geth --softspoon \
+  --bootnodes "<BOOTNODE_ENODE — to be filled in>" \
+  --syncmode snap \
+  --datadir <your-datadir>
+```
 
-Please see the [Developers' Guide](https://github.com/ethereum/go-ethereum/wiki/Developers'-Guide)
-for more details on configuring your environment, managing project dependencies, and
-testing procedures.
+## 4. Run a node
 
-## License
+```bash
+./build/bin/geth --softspoon \
+  --datadir <your-datadir> \
+  --bootnodes "<BOOTNODE_ENODE — to be filled in>" \
+  --http --http.api eth,net,web3
+```
 
-The core-geth library (i.e. all code outside of the `cmd` directory) is licensed under the
-[GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html),
-also included in our repository in the `COPYING.LESSER` file.
+Verify you are on the right chain:
 
-The core-geth binaries (i.e. all code inside of the `cmd` directory) is licensed under the
-[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), also
-included in our repository in the `COPYING` file.
+```bash
+./build/bin/geth attach <your-datadir>/geth.ipc
+> eth.chainId()                 // 2517
+> eth.getBlock(1428757).hash    // 0xd4f997...6564
+```
+
+## 5. Mining
+
+Soft Spoon stays PoW and is CPU/single-GPU mineable.
+
+```bash
+./build/bin/geth --softspoon \
+  --datadir <your-datadir> \
+  --bootnodes "<BOOTNODE_ENODE — to be filled in>" \
+  --mine --miner.threads 1 \
+  --miner.etherbase 0xYOUR_REWARD_ADDRESS
+```
+
+Difficulty after the fork follows the standard Homestead dynamic adjustment
+(no difficulty bomb), so it tracks the real network hashrate automatically.
+
+---
+
+<a name="zh"></a>
+
+<p align="right"><a href="#en">English</a> | <strong>中文</strong></p>
+
+# Soft Spoon — 节点部署指南
+
+> Soft Spoon 是一个艺术项目：把以太坊在 theDAO 合约部署前的区块处分叉（分叉首块
+> **1428757**），并永久保持 PoW。本指南面向**希望在现有链上运行 / 挖矿的节点运营者**，
+> **不**涉及一次性的建链（截断 / 铸造）——那部分已由项目方完成，你只需获取链数据并
+> 运行节点即可。
+
+## 1. 网络参数
+
+| 项目 | 取值 |
+|------|------|
+| 网络名（flag） | `--softspoon` |
+| Chain ID | `2517` |
+| Network ID | `2517` |
+| 共识 | Ethash PoW（永久，无 Merge） |
+| Genesis 哈希 | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
+| 分叉首块（首个自出块） | `1428757` |
+| 分叉首块 `1428757` 哈希 | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
+| 分叉首块 `1428757` 难度 | `1048576`（`0x100000`） |
+| 可信检查点 | `<待填充>` |
+
+## 2. 编译
+
+需要 Go 1.21+、C 工具链（gcc/clang）、git、make。
+
+```bash
+git clone https://github.com/CryptoZR/SoftSpoon.git
+cd SoftSpoon
+make geth
+# 二进制位于 ./build/bin/geth
+```
+
+## 3. 获取链数据
+
+你需要拿到包含分叉首块 `1428757` 及之后的链数据，两种方式：
+
+### 方式 A — 从发布的链镜像还原（推荐，最快）
+
+```bash
+# 下载镜像（地址待填充）
+curl -L -o softspoon-chain.tar.gz "<镜像地址 — 待填充>"
+
+# 解包到你的 Ethereum 数据根目录（会生成 softspoon 数据目录）
+tar -C ~/Library/Ethereum -xzf softspoon-chain.tar.gz
+# Linux 默认根目录：~/.ethereum
+```
+
+### 方式 B — 从网络同步
+
+通过项目 bootnode 同步。信任由编译进二进制的硬编码 `TrustedCheckpoint` 锚定，
+因此 snap 同步是安全的。
+
+```bash
+./build/bin/geth --softspoon \
+  --bootnodes "<bootnode enode — 待填充>" \
+  --syncmode snap \
+  --datadir <你的数据目录>
+```
+
+## 4. 运行节点
+
+```bash
+./build/bin/geth --softspoon \
+  --datadir <你的数据目录> \
+  --bootnodes "<bootnode enode — 待填充>" \
+  --http --http.api eth,net,web3
+```
+
+验证你在正确的链上：
+
+```bash
+./build/bin/geth attach <你的数据目录>/geth.ipc
+> eth.chainId()                 // 2517
+> eth.getBlock(1428757).hash    // 0xd4f997...6564
+```
+
+## 5. 挖矿
+
+Soft Spoon 保持 PoW，CPU / 单卡即可挖。
+
+```bash
+./build/bin/geth --softspoon \
+  --datadir <你的数据目录> \
+  --bootnodes "<bootnode enode — 待填充>" \
+  --mine --miner.threads 1 \
+  --miner.etherbase 0x你的收款地址
+```
+
+分叉之后的难度采用标准 Homestead 动态调整（无难度炸弹），会自动跟随网络真实算力。
