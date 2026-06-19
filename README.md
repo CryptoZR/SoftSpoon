@@ -4,8 +4,8 @@
 
 # Soft Spoon — Node Deployment Guide
 
-> Soft Spoon is an art project: a fork of Ethereum at the block right before the
-> theDAO contract was deployed (fork block **1428757**), kept permanent PoW.
+> Soft Spoon is an art project: the Soft Spoon of Ethereum at the block right before the
+> theDAO contract was deployed (Soft Spoon block **1428757**), kept permanent PoW.
 > This guide is for **operators who want to run / mine a node** on the existing
 > chain. It does **not** cover one-time chain creation (truncation / minting) —
 > that has already been done by the project; you only need to obtain the chain
@@ -20,9 +20,9 @@
 | Network ID | `2517` |
 | Consensus | Ethash PoW (permanent, no Merge) |
 | Genesis hash | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
-| Fork block (first self-mined) | `1428757` |
-| Fork block `1428757` hash | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
-| Fork block `1428757` difficulty | `1048576` (`0x100000`) |
+| Soft Spoon block (first self-mined) | `1428757` |
+| Soft Spoon block `1428757` hash | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
+| Soft Spoon block `1428757` difficulty | `1048576` (`0x100000`) |
 | Trusted checkpoint | `<TBD — to be filled in>` |
 
 ## 2. Build
@@ -38,7 +38,7 @@ make geth
 
 ## 3. Obtain the chain
 
-You need the chain data up to and beyond the fork block `1428757`. Two ways:
+You need the chain data up to and beyond the Soft Spoon block `1428757`. Two ways:
 
 ### Option A — Restore from the published chain image (recommended, fastest)
 
@@ -92,7 +92,7 @@ Soft Spoon stays PoW and is CPU/single-GPU mineable.
   --miner.etherbase 0xYOUR_REWARD_ADDRESS
 ```
 
-Difficulty after the fork follows the standard Homestead dynamic adjustment
+Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustment
 (no difficulty bomb), so it tracks the real network hashrate automatically.
 
 ---
@@ -103,7 +103,7 @@ Difficulty after the fork follows the standard Homestead dynamic adjustment
 
 # Soft Spoon — 节点部署指南
 
-> Soft Spoon 是一个艺术项目：把以太坊在 theDAO 合约部署前的区块处分叉（分叉首块
+> Soft Spoon 是一个艺术项目：把以太坊在 theDAO 合约部署前的区块处做 Soft Spoon（Soft Spoon 首块
 > **1428757**），并永久保持 PoW。本指南面向**希望在现有链上运行 / 挖矿的节点运营者**，
 > **不**涉及一次性的建链（截断 / 铸造）——那部分已由项目方完成，你只需获取链数据并
 > 运行节点即可。
@@ -117,9 +117,9 @@ Difficulty after the fork follows the standard Homestead dynamic adjustment
 | Network ID | `2517` |
 | 共识 | Ethash PoW（永久，无 Merge） |
 | Genesis 哈希 | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
-| 分叉首块（首个自出块） | `1428757` |
-| 分叉首块 `1428757` 哈希 | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
-| 分叉首块 `1428757` 难度 | `1048576`（`0x100000`） |
+| Soft Spoon 首块（首个自出块） | `1428757` |
+| Soft Spoon 首块 `1428757` 哈希 | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
+| Soft Spoon 首块 `1428757` 难度 | `1048576`（`0x100000`） |
 | 可信检查点 | `<待填充>` |
 
 ## 2. 编译
@@ -135,7 +135,7 @@ make geth
 
 ## 3. 获取链数据
 
-你需要拿到包含分叉首块 `1428757` 及之后的链数据，两种方式：
+你需要拿到包含 Soft Spoon 首块 `1428757` 及之后的链数据，两种方式：
 
 ### 方式 A — 从发布的链镜像还原（推荐，最快）
 
@@ -189,4 +189,4 @@ Soft Spoon 保持 PoW，CPU / 单卡即可挖。
   --miner.etherbase 0x你的收款地址
 ```
 
-分叉之后的难度采用标准 Homestead 动态调整（无难度炸弹），会自动跟随网络真实算力。
+Soft Spoon 之后的难度采用标准 Homestead 动态调整（无难度炸弹），会自动跟随网络真实算力。
