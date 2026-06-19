@@ -60,3 +60,8 @@ les/transactions.rlp
 /MANIFEST
 /manifest.json
 /site
+
+# Soft Spoon: 内部工件，不进公开仓库
+claude.md
+memo
+docs/superpowers/
