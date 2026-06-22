@@ -19,6 +19,7 @@ package params
 import (
 	"math/big"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params/types/coregeth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/vars"
@@ -46,5 +47,11 @@ var PreDAOForkChainConfig = &coregeth.CoreGethChainConfig{
 	EIP155Block:   big.NewInt(1_428_757), // replay protection with chainID 2517
 	DisposalBlock: big.NewInt(1_428_757), // ECIP1041: remove difficulty bomb after the Soft Spoon
 
-	// TrustedCheckpoint left nil; backfilled in release phase B (see RUNBOOK).
+	// TrustedCheckpoint pins the canonical Soft Spoon chain for snap-syncing full nodes.
+	// Section 43 covers blocks [1409024, 1441791]; SectionHead is the hash of block 1441791.
+	// CHTRoot/BloomRoot are unused by the full-node sync challenge (light/les removed) and left zero.
+	TrustedCheckpoint: &ctypes.TrustedCheckpoint{
+		SectionIndex: 43,
+		SectionHead:  common.HexToHash("0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762"),
+	},
 }

@@ -23,7 +23,8 @@
 | Soft Spoon block (first self-mined) | `1428757` |
 | Soft Spoon block `1428757` hash | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
 | Soft Spoon block `1428757` difficulty | `1048576` (`0x100000`) |
-| Trusted checkpoint | `<TBD — to be filled in>` |
+| Trusted checkpoint | section `43`, head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762` (block `1441791`) |
+| Default data directory | macOS `~/Library/Ethereum/softspoon`, Linux `~/.ethereum/softspoon` |
 
 ## 2. Build
 
@@ -42,14 +43,25 @@ You need the chain data up to and beyond the Soft Spoon block `1428757`. Two way
 
 ### Option A — Restore from the published chain image (recommended, fastest)
 
-```bash
-# Download the image (URL TBD)
-curl -L -o softspoon-chain.tar.gz "<IMAGE_URL — to be filled in>"
+Download `softspoon-chain.tar.gz`:
 
-# Extract into your Ethereum data root (creates the softspoon datadir)
-tar -C ~/Library/Ethereum -xzf softspoon-chain.tar.gz
-# Linux default root: ~/.ethereum
+- Google Drive: https://drive.google.com/open?id=11gFUEpmmi-WMoQAaXeE-BpxrXSfj7q2C
+- Baidu Netdisk: https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 (extraction code `7198`)
+
+The archive contains a `softspoon/` directory (`geth/` + `keystore/`), which is
+exactly the default datadir that `geth --softspoon` uses. Extract it into the
+data root for your OS — afterwards you do **not** need a `--datadir` flag.
+
+```bash
+# macOS — data root ~/Library/Ethereum
+tar -xzf softspoon-chain.tar.gz -C ~/Library/Ethereum
+
+# Linux — data root ~/.ethereum
+tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 ```
+
+Result: `~/Library/Ethereum/softspoon/{geth,keystore}` (macOS) or
+`~/.ethereum/softspoon/{geth,keystore}` (Linux).
 
 ### Option B — Sync from the network
 
@@ -59,23 +71,25 @@ Sync from a project bootnode. Trust is anchored by the hardcoded
 ```bash
 ./build/bin/geth --softspoon \
   --bootnodes "<BOOTNODE_ENODE — to be filled in>" \
-  --syncmode snap \
-  --datadir <your-datadir>
+  --syncmode snap
 ```
 
 ## 4. Run a node
 
+With the image restored to the default datadir, no `--datadir` is needed:
+
 ```bash
 ./build/bin/geth --softspoon \
-  --datadir <your-datadir> \
-  --bootnodes "<BOOTNODE_ENODE — to be filled in>" \
   --http --http.api eth,net,web3
+# (optional) connect to peers: --bootnodes "<BOOTNODE_ENODE — to be filled in>"
 ```
 
-Verify you are on the right chain:
+Verify you are on the right chain (default IPC path shown):
 
 ```bash
-./build/bin/geth attach <your-datadir>/geth.ipc
+# macOS
+./build/bin/geth attach ~/Library/Ethereum/softspoon/geth.ipc
+# Linux: ~/.ethereum/softspoon/geth.ipc
 > eth.chainId()                 // 2517
 > eth.getBlock(1428757).hash    // 0xd4f997...6564
 ```
@@ -86,8 +100,6 @@ Soft Spoon stays PoW and is CPU/single-GPU mineable.
 
 ```bash
 ./build/bin/geth --softspoon \
-  --datadir <your-datadir> \
-  --bootnodes "<BOOTNODE_ENODE — to be filled in>" \
   --mine --miner.threads 1 \
   --miner.etherbase 0xYOUR_REWARD_ADDRESS
 ```
@@ -120,7 +132,8 @@ Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustmen
 | Soft Spoon 首块（首个自出块） | `1428757` |
 | Soft Spoon 首块 `1428757` 哈希 | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
 | Soft Spoon 首块 `1428757` 难度 | `1048576`（`0x100000`） |
-| 可信检查点 | `<待填充>` |
+| 可信检查点 | section `43`，head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762`（区块 `1441791`） |
+| 默认数据目录 | macOS `~/Library/Ethereum/softspoon`，Linux `~/.ethereum/softspoon` |
 
 ## 2. 编译
 
@@ -139,14 +152,24 @@ make geth
 
 ### 方式 A — 从发布的链镜像还原（推荐，最快）
 
-```bash
-# 下载镜像（地址待填充）
-curl -L -o softspoon-chain.tar.gz "<镜像地址 — 待填充>"
+下载 `softspoon-chain.tar.gz`：
 
-# 解包到你的 Ethereum 数据根目录（会生成 softspoon 数据目录）
-tar -C ~/Library/Ethereum -xzf softspoon-chain.tar.gz
-# Linux 默认根目录：~/.ethereum
+- Google Drive：https://drive.google.com/open?id=11gFUEpmmi-WMoQAaXeE-BpxrXSfj7q2C
+- 百度网盘：https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 （提取码 `7198`）
+
+压缩包内含一个 `softspoon/` 目录（`geth/` + `keystore/`），它正是 `geth --softspoon`
+默认使用的数据目录。按你的操作系统解压到对应的数据根目录即可——之后**无需** `--datadir`。
+
+```bash
+# macOS —— 数据根目录 ~/Library/Ethereum
+tar -xzf softspoon-chain.tar.gz -C ~/Library/Ethereum
+
+# Linux —— 数据根目录 ~/.ethereum
+tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 ```
+
+解压后得到：`~/Library/Ethereum/softspoon/{geth,keystore}`（macOS）或
+`~/.ethereum/softspoon/{geth,keystore}`（Linux）。
 
 ### 方式 B — 从网络同步
 
@@ -156,23 +179,25 @@ tar -C ~/Library/Ethereum -xzf softspoon-chain.tar.gz
 ```bash
 ./build/bin/geth --softspoon \
   --bootnodes "<bootnode enode — 待填充>" \
-  --syncmode snap \
-  --datadir <你的数据目录>
+  --syncmode snap
 ```
 
 ## 4. 运行节点
 
+镜像已还原到默认数据目录，无需 `--datadir`：
+
 ```bash
 ./build/bin/geth --softspoon \
-  --datadir <你的数据目录> \
-  --bootnodes "<bootnode enode — 待填充>" \
   --http --http.api eth,net,web3
+# （可选）连接对等节点：--bootnodes "<bootnode enode — 待填充>"
 ```
 
-验证你在正确的链上：
+验证你在正确的链上（下方为默认 IPC 路径）：
 
 ```bash
-./build/bin/geth attach <你的数据目录>/geth.ipc
+# macOS
+./build/bin/geth attach ~/Library/Ethereum/softspoon/geth.ipc
+# Linux：~/.ethereum/softspoon/geth.ipc
 > eth.chainId()                 // 2517
 > eth.getBlock(1428757).hash    // 0xd4f997...6564
 ```
@@ -183,8 +208,6 @@ Soft Spoon 保持 PoW，CPU / 单卡即可挖。
 
 ```bash
 ./build/bin/geth --softspoon \
-  --datadir <你的数据目录> \
-  --bootnodes "<bootnode enode — 待填充>" \
   --mine --miner.threads 1 \
   --miner.etherbase 0x你的收款地址
 ```
