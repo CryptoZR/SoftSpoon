@@ -5,7 +5,7 @@
 # Soft Spoon — Node Deployment Guide
 
 > Soft Spoon is an art project: the Soft Spoon of Ethereum at the block right before the
-> theDAO contract was deployed (Soft Spoon block **1428757**), kept permanent PoW.
+> theDAO contract was deployed (Soft Spoon block **1428757**).
 > This guide is for **operators who want to run / mine a node** on the existing
 > chain. It does **not** cover one-time chain creation (truncation / minting) —
 > that has already been done by the project; you only need to obtain the chain
@@ -18,7 +18,7 @@
 | Network name (flag) | `--softspoon` |
 | Chain ID | `2517` |
 | Network ID | `2517` |
-| Consensus | Ethash PoW (permanent, no Merge) |
+| Consensus | Ethash PoW |
 | Genesis hash | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
 | Soft Spoon block (first self-mined) | `1428757` |
 | Soft Spoon block `1428757` hash | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
@@ -45,7 +45,7 @@ You need the chain data up to and beyond the Soft Spoon block `1428757`. Two way
 
 Download `softspoon-chain.tar.gz`:
 
-- Google Drive: https://drive.google.com/open?id=11gFUEpmmi-WMoQAaXeE-BpxrXSfj7q2C
+- Google Drive: https://drive.google.com/file/d/1swh88yFMIh8UPbsx43Dos6PTEo623E36
 - Baidu Netdisk: https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 (extraction code `7198`)
 
 The archive contains a `softspoon/` directory (`geth/` + `keystore/`), which is
@@ -62,6 +62,9 @@ tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 
 Result: `~/Library/Ethereum/softspoon/{geth,keystore}` (macOS) or
 `~/.ethereum/softspoon/{geth,keystore}` (Linux).
+
+> On macOS, `tar` may print `Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'`.
+> This is harmless — just ignore it.
 
 ### Option B — Sync from the network
 
@@ -96,7 +99,7 @@ Verify you are on the right chain (default IPC path shown):
 
 ## 5. Mining
 
-Soft Spoon stays PoW and is CPU/single-GPU mineable.
+Soft Spoon is CPU/single-GPU mineable.
 
 ```bash
 ./build/bin/geth --softspoon \
@@ -116,7 +119,7 @@ Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustmen
 # Soft Spoon — 节点部署指南
 
 > Soft Spoon 是一个艺术项目：把以太坊在 theDAO 合约部署前的区块处做 Soft Spoon（Soft Spoon 首块
-> **1428757**），并永久保持 PoW。本指南面向**希望在现有链上运行 / 挖矿的节点运营者**，
+> **1428757**）。本指南面向**希望在现有链上运行 / 挖矿的节点运营者**，
 > **不**涉及一次性的建链（截断 / 铸造）——那部分已由项目方完成，你只需获取链数据并
 > 运行节点即可。
 
@@ -127,7 +130,7 @@ Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustmen
 | 网络名（flag） | `--softspoon` |
 | Chain ID | `2517` |
 | Network ID | `2517` |
-| 共识 | Ethash PoW（永久，无 Merge） |
+| 共识 | Ethash PoW |
 | Genesis 哈希 | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
 | Soft Spoon 首块（首个自出块） | `1428757` |
 | Soft Spoon 首块 `1428757` 哈希 | `0xd4f997aca084bd361480b034adea2db292f079f542d52a718a04e71d671d6564` |
@@ -154,7 +157,7 @@ make geth
 
 下载 `softspoon-chain.tar.gz`：
 
-- Google Drive：https://drive.google.com/open?id=11gFUEpmmi-WMoQAaXeE-BpxrXSfj7q2C
+- Google Drive：https://drive.google.com/file/d/1swh88yFMIh8UPbsx43Dos6PTEo623E36
 - 百度网盘：https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 （提取码 `7198`）
 
 压缩包内含一个 `softspoon/` 目录（`geth/` + `keystore/`），它正是 `geth --softspoon`
@@ -170,6 +173,9 @@ tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 
 解压后得到：`~/Library/Ethereum/softspoon/{geth,keystore}`（macOS）或
 `~/.ethereum/softspoon/{geth,keystore}`（Linux）。
+
+> macOS 上解压时 `tar` 可能提示 `Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'`，
+> 属正常现象，忽略即可。
 
 ### 方式 B — 从网络同步
 
@@ -204,7 +210,7 @@ tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 
 ## 5. 挖矿
 
-Soft Spoon 保持 PoW，CPU / 单卡即可挖。
+Soft Spoon 支持 CPU / 单卡挖矿。
 
 ```bash
 ./build/bin/geth --softspoon \
