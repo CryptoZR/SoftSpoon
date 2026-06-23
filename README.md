@@ -25,7 +25,7 @@
 | Soft Spoon block `1428757` difficulty | `1048576` (`0x100000`) |
 | Trusted checkpoint | section `43`, head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762` (block `1441791`) |
 | Default data directory | macOS `~/Library/Ethereum/softspoon`, Linux `~/.ethereum/softspoon` |
-| Bootnode | `enode://ef794a99…bb4564@95.217.104.247:30304` |
+| Bootnodes | `enode://ef794a99…bb4564@95.217.104.247:30304`<br>`enode://c4d03b5f…c0b5f@188.40.138.215:30304` |
 
 ## 2. Build
 
@@ -49,9 +49,11 @@ Download `softspoon-chain.tar.gz`:
 - Google Drive: https://drive.google.com/file/d/1swh88yFMIh8UPbsx43Dos6PTEo623E36
 - Baidu Netdisk: https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 (extraction code `7198`)
 
-The archive contains a `softspoon/` directory (`geth/` + `keystore/`), which is
-exactly the default datadir that `geth --softspoon` uses. Extract it into the
-data root for your OS — afterwards you do **not** need a `--datadir` flag.
+The archive contains a `softspoon/` directory (`geth/`), which is exactly the
+default datadir that `geth --softspoon` uses. Extract it into the data root for
+your OS — afterwards you do **not** need a `--datadir` flag. On first start each
+node generates its own unique identity (`geth/nodekey`), so every operator gets a
+distinct enode.
 
 ```bash
 # macOS — data root ~/Library/Ethereum
@@ -61,11 +63,8 @@ tar -xzf softspoon-chain.tar.gz -C ~/Library/Ethereum
 tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 ```
 
-Result: `~/Library/Ethereum/softspoon/{geth,keystore}` (macOS) or
-`~/.ethereum/softspoon/{geth,keystore}` (Linux).
-
-> On macOS, `tar` may print `Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'`.
-> This is harmless — just ignore it.
+Result: `~/Library/Ethereum/softspoon/geth` (macOS) or
+`~/.ethereum/softspoon/geth` (Linux).
 
 ### Option B — Sync from the network
 
@@ -74,7 +73,7 @@ Sync from a project bootnode. Trust is anchored by the hardcoded
 
 ```bash
 ./build/bin/geth --softspoon \
-  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304" \
+  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304" \
   --syncmode snap
 ```
 
@@ -85,7 +84,7 @@ With the image restored to the default datadir, no `--datadir` is needed:
 ```bash
 ./build/bin/geth --softspoon \
   --http --http.api eth,net,web3
-# (optional) connect to peers: --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304"
+# (optional) connect to peers: --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304"
 ```
 
 Verify you are on the right chain (default IPC path shown):
@@ -138,7 +137,7 @@ Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustmen
 | Soft Spoon 首块 `1428757` 难度 | `1048576`（`0x100000`） |
 | 可信检查点 | section `43`，head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762`（区块 `1441791`） |
 | 默认数据目录 | macOS `~/Library/Ethereum/softspoon`，Linux `~/.ethereum/softspoon` |
-| Bootnode | `enode://ef794a99…bb4564@95.217.104.247:30304` |
+| Bootnodes | `enode://ef794a99…bb4564@95.217.104.247:30304`<br>`enode://c4d03b5f…c0b5f@188.40.138.215:30304` |
 
 ## 2. 编译
 
@@ -162,8 +161,9 @@ make geth
 - Google Drive：https://drive.google.com/file/d/1swh88yFMIh8UPbsx43Dos6PTEo623E36
 - 百度网盘：https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 （提取码 `7198`）
 
-压缩包内含一个 `softspoon/` 目录（`geth/` + `keystore/`），它正是 `geth --softspoon`
-默认使用的数据目录。按你的操作系统解压到对应的数据根目录即可——之后**无需** `--datadir`。
+压缩包内含一个 `softspoon/` 目录（`geth/`），它正是 `geth --softspoon` 默认使用的数据目录。
+按你的操作系统解压到对应的数据根目录即可——之后**无需** `--datadir`。每个节点首次启动会自动
+生成自己的唯一身份（`geth/nodekey`），因此每位运营者都会得到不同的 enode。
 
 ```bash
 # macOS —— 数据根目录 ~/Library/Ethereum
@@ -173,11 +173,8 @@ tar -xzf softspoon-chain.tar.gz -C ~/Library/Ethereum
 tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 ```
 
-解压后得到：`~/Library/Ethereum/softspoon/{geth,keystore}`（macOS）或
-`~/.ethereum/softspoon/{geth,keystore}`（Linux）。
-
-> macOS 上解压时 `tar` 可能提示 `Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'`，
-> 属正常现象，忽略即可。
+解压后得到：`~/Library/Ethereum/softspoon/geth`（macOS）或
+`~/.ethereum/softspoon/geth`（Linux）。
 
 ### 方式 B — 从网络同步
 
@@ -186,7 +183,7 @@ tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 
 ```bash
 ./build/bin/geth --softspoon \
-  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304" \
+  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304" \
   --syncmode snap
 ```
 
@@ -197,7 +194,7 @@ tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 ```bash
 ./build/bin/geth --softspoon \
   --http --http.api eth,net,web3
-# （可选）连接对等节点：--bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304"
+# （可选）连接对等节点：--bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304"
 ```
 
 验证你在正确的链上（下方为默认 IPC 路径）：
