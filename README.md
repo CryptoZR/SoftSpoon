@@ -25,6 +25,7 @@
 | Soft Spoon block `1428757` difficulty | `1048576` (`0x100000`) |
 | Trusted checkpoint | section `43`, head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762` (block `1441791`) |
 | Default data directory | macOS `~/Library/Ethereum/softspoon`, Linux `~/.ethereum/softspoon` |
+| Bootnode | `enode://ef794a99…bb4564@95.217.104.247:30304` |
 
 ## 2. Build
 
@@ -73,7 +74,7 @@ Sync from a project bootnode. Trust is anchored by the hardcoded
 
 ```bash
 ./build/bin/geth --softspoon \
-  --bootnodes "<BOOTNODE_ENODE — to be filled in>" \
+  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304" \
   --syncmode snap
 ```
 
@@ -84,7 +85,7 @@ With the image restored to the default datadir, no `--datadir` is needed:
 ```bash
 ./build/bin/geth --softspoon \
   --http --http.api eth,net,web3
-# (optional) connect to peers: --bootnodes "<BOOTNODE_ENODE — to be filled in>"
+# (optional) connect to peers: --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304"
 ```
 
 Verify you are on the right chain (default IPC path shown):
@@ -137,6 +138,7 @@ Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustmen
 | Soft Spoon 首块 `1428757` 难度 | `1048576`（`0x100000`） |
 | 可信检查点 | section `43`，head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762`（区块 `1441791`） |
 | 默认数据目录 | macOS `~/Library/Ethereum/softspoon`，Linux `~/.ethereum/softspoon` |
+| Bootnode | `enode://ef794a99…bb4564@95.217.104.247:30304` |
 
 ## 2. 编译
 
@@ -184,7 +186,7 @@ tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 
 ```bash
 ./build/bin/geth --softspoon \
-  --bootnodes "<bootnode enode — 待填充>" \
+  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304" \
   --syncmode snap
 ```
 
@@ -195,7 +197,7 @@ tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
 ```bash
 ./build/bin/geth --softspoon \
   --http --http.api eth,net,web3
-# （可选）连接对等节点：--bootnodes "<bootnode enode — 待填充>"
+# （可选）连接对等节点：--bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304"
 ```
 
 验证你在正确的链上（下方为默认 IPC 路径）：
