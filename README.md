@@ -44,10 +44,10 @@ You need the chain data up to and beyond the Soft Spoon block `1428757`. Two way
 
 ### Option A — Restore from the published chain image (recommended, fastest)
 
-Download `softspoon-chain.tar.gz`:
+Download `softspoon.tar.gz`:
 
-- Google Drive: https://drive.google.com/file/d/1swh88yFMIh8UPbsx43Dos6PTEo623E36
-- Baidu Netdisk: https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 (extraction code `7198`)
+- Google Drive: https://drive.google.com/file/d/1CSgA-Qf_QUSfUmDCSJaXLtMvzDslojay/view?usp=sharing
+- Baidu Netdisk: https://pan.baidu.com/s/1x9wlD09ymku5w-Abs6u-bA?pwd=2517 (extraction code `2517`)
 
 The archive contains a `softspoon/` directory (`geth/`), which is exactly the
 default datadir that `geth --softspoon` uses. Extract it into the data root for
@@ -57,10 +57,10 @@ distinct enode.
 
 ```bash
 # macOS — data root ~/Library/Ethereum
-tar -xzf softspoon-chain.tar.gz -C ~/Library/Ethereum
+tar -xzf softspoon.tar.gz -C ~/Library/Ethereum
 
 # Linux — data root ~/.ethereum
-tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
+tar -xzf softspoon.tar.gz -C ~/.ethereum
 ```
 
 Result: `~/Library/Ethereum/softspoon/geth` (macOS) or
@@ -156,10 +156,10 @@ make geth
 
 ### 方式 A — 从发布的链镜像还原（推荐，最快）
 
-下载 `softspoon-chain.tar.gz`：
+下载 `softspoon.tar.gz`：
 
-- Google Drive：https://drive.google.com/file/d/1swh88yFMIh8UPbsx43Dos6PTEo623E36
-- 百度网盘：https://pan.baidu.com/s/1tYA6MQI6UMg17w3EXJHs2w?pwd=7198 （提取码 `7198`）
+- Google Drive：https://drive.google.com/file/d/1CSgA-Qf_QUSfUmDCSJaXLtMvzDslojay/view?usp=sharing
+- 百度网盘：https://pan.baidu.com/s/1x9wlD09ymku5w-Abs6u-bA?pwd=2517 （提取码 `2517`）
 
 压缩包内含一个 `softspoon/` 目录（`geth/`），它正是 `geth --softspoon` 默认使用的数据目录。
 按你的操作系统解压到对应的数据根目录即可——之后**无需** `--datadir`。每个节点首次启动会自动
@@ -167,10 +167,10 @@ make geth
 
 ```bash
 # macOS —— 数据根目录 ~/Library/Ethereum
-tar -xzf softspoon-chain.tar.gz -C ~/Library/Ethereum
+tar -xzf softspoon.tar.gz -C ~/Library/Ethereum
 
 # Linux —— 数据根目录 ~/.ethereum
-tar -xzf softspoon-chain.tar.gz -C ~/.ethereum
+tar -xzf softspoon.tar.gz -C ~/.ethereum
 ```
 
 解压后得到：`~/Library/Ethereum/softspoon/geth`（macOS）或
