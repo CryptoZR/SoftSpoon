@@ -8,8 +8,8 @@ import (
 func TestPreDAOForkConfig(t *testing.T) {
 	c := PreDAOForkChainConfig
 
-	if c.GetChainID().Cmp(big.NewInt(2517)) != 0 {
-		t.Fatalf("chainID: want 2517, got %v", c.GetChainID())
+	if c.GetChainID().Cmp(big.NewInt(7198)) != 0 {
+		t.Fatalf("chainID: want 7198, got %v", c.GetChainID())
 	}
 
 	// Homestead (EIP2) 在 1150000 之前未启用、之后启用

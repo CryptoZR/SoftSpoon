@@ -28,12 +28,12 @@ import (
 // PreDAOForkChainConfig is the chain config for the "Soft Spoon" art-project network:
 // Ethereum's Soft Spoon happens at block 1428757 (the block right after the last pre-theDAO-contract
 // block, 1428756). History 0..1428756 validates with original Frontier->Homestead rules;
-// from 1428757 the chain stays PoW forever with EIP155 replay protection (chainID 2517)
+// from 1428757 the chain stays PoW forever with EIP155 replay protection (chainID 7198)
 // and no difficulty bomb. The one-time difficulty reset at 1428757 lives in
-// consensus/ethash (gated by chainID 2517) since it is not expressible via config.
+// consensus/ethash (gated by chainID 7198) since it is not expressible via config.
 var PreDAOForkChainConfig = &coregeth.CoreGethChainConfig{
-	NetworkID:                 2517,
-	ChainID:                   big.NewInt(2517),
+	NetworkID:                 7198,
+	ChainID:                   big.NewInt(7198),
 	Ethash:                    new(ctypes.EthashConfig),
 	SupportedProtocolVersions: vars.DefaultProtocolVersions,
 
@@ -44,7 +44,7 @@ var PreDAOForkChainConfig = &coregeth.CoreGethChainConfig{
 	// DAOForkBlock left nil: never execute the DAO fork.
 
 	// Our Soft Spoon rules, effective from the first self-mined block.
-	EIP155Block:   big.NewInt(1_428_757), // replay protection with chainID 2517
+	EIP155Block:   big.NewInt(1_428_757), // replay protection with chainID 7198
 	DisposalBlock: big.NewInt(1_428_757), // ECIP1041: remove difficulty bomb after the Soft Spoon
 
 	// TrustedCheckpoint pins the canonical Soft Spoon chain for snap-syncing full nodes.
