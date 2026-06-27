@@ -16,8 +16,8 @@
 | Item | Value |
 |------|-------|
 | Network name (flag) | `--softspoon` |
-| Chain ID | `7198` |
-| Network ID | `7198` |
+| Chain ID | `2517` |
+| Network ID | `2517` |
 | Consensus | Ethash PoW |
 | Genesis hash | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
 | Soft Spoon block (first self-mined) | `1428757` |
@@ -93,7 +93,7 @@ Verify you are on the right chain (default IPC path shown):
 # macOS
 ./build/bin/geth attach ~/Library/Ethereum/softspoon/geth.ipc
 # Linux: ~/.ethereum/softspoon/geth.ipc
-> eth.chainId()                 // 7198
+> eth.chainId()                 // 2517
 > eth.getBlock(1428757).hash    // 0xd4f997...6564
 ```
 
@@ -128,8 +128,8 @@ Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustmen
 | 项目 | 取值 |
 |------|------|
 | 网络名（flag） | `--softspoon` |
-| Chain ID | `7198` |
-| Network ID | `7198` |
+| Chain ID | `2517` |
+| Network ID | `2517` |
 | 共识 | Ethash PoW |
 | Genesis 哈希 | `0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3` |
 | Soft Spoon 首块（首个自出块） | `1428757` |
@@ -203,7 +203,7 @@ tar -xzf softspoon.tar.gz -C ~/.ethereum
 # macOS
 ./build/bin/geth attach ~/Library/Ethereum/softspoon/geth.ipc
 # Linux：~/.ethereum/softspoon/geth.ipc
-> eth.chainId()                 // 7198
+> eth.chainId()                 // 2517
 > eth.getBlock(1428757).hash    // 0xd4f997...6564
 ```
 

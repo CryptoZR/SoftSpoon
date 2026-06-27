@@ -365,7 +365,7 @@ func CalcDifficulty(config ctypes.ChainConfigurator, time uint64, parent *types.
 	next := new(big.Int).Add(parent.Number, big1)
 	out := new(big.Int)
 
-	// Soft Spoon: one-time difficulty reset at the Soft Spoon block, only for chainID 7198.
+	// Soft Spoon: one-time difficulty reset at the Soft Spoon block, only for chainID 2517.
 	if cid := config.GetChainID(); cid != nil && cid.Cmp(softSpoonChainID) == 0 &&
 		next.Cmp(softSpoonForkBlock) == 0 {
 		return new(big.Int).Set(softSpoonForkInitDifficulty)
@@ -544,7 +544,7 @@ var (
 // ChainID so no other network (Classic=61, mainnet=1, Mordor, ...) is affected.
 // Keep softSpoonForkBlock in sync with params.PreDAOForkChainConfig (EIP155Block/DisposalBlock).
 var (
-	softSpoonChainID            = big.NewInt(7198)
+	softSpoonChainID            = big.NewInt(2517)
 	softSpoonForkBlock          = big.NewInt(1_428_757)
 	softSpoonForkInitDifficulty = big.NewInt(0x100000) // 1048576; MUST match the minted canonical block 1428757's difficulty (CPU-mineable; floor: vars.MinimumDifficulty=131072)
 )
