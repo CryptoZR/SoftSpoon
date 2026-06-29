@@ -25,7 +25,7 @@
 | Soft Spoon block `1428757` difficulty | `1048576` (`0x100000`) |
 | Trusted checkpoint | section `43`, head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762` (block `1441791`) |
 | Default data directory | macOS `~/Library/Ethereum/softspoon`, Linux `~/.ethereum/softspoon` |
-| Bootnodes | `enode://ef794a99…bb4564@95.217.104.247:30304`<br>`enode://c4d03b5f…c0b5f@188.40.138.215:30304` |
+| Bootnodes | `enode://ef794a99…bb4564@95.217.104.247:30304`<br>`enode://c4d03b5f…c0b5f@188.40.138.215:30304`<br>`enode://54ca4dd1…e4ec3e@95.217.201.92:30303` |
 
 ## 2. Build
 
@@ -134,7 +134,7 @@ Difficulty after the Soft Spoon follows the standard Homestead dynamic adjustmen
 | Soft Spoon 首块 `1428757` 难度 | `1048576`（`0x100000`） |
 | 可信检查点 | section `43`，head `0xade01e713d874b87dc6de44db12fda26963b38ca9b83cc4dc764fb7c8548d762`（区块 `1441791`） |
 | 默认数据目录 | macOS `~/Library/Ethereum/softspoon`，Linux `~/.ethereum/softspoon` |
-| Bootnodes | `enode://ef794a99…bb4564@95.217.104.247:30304`<br>`enode://c4d03b5f…c0b5f@188.40.138.215:30304` |
+| Bootnodes | `enode://ef794a99…bb4564@95.217.104.247:30304`<br>`enode://c4d03b5f…c0b5f@188.40.138.215:30304`<br>`enode://54ca4dd1…e4ec3e@95.217.201.92:30303` |
 
 ## 2. 编译
 
