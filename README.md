@@ -51,9 +51,7 @@ Download `softspoon.tar.gz`:
 
 The archive contains a `softspoon/` directory (`geth/`), which is exactly the
 default datadir that `geth --softspoon` uses. Extract it into the data root for
-your OS — afterwards you do **not** need a `--datadir` flag. On first start each
-node generates its own unique identity (`geth/nodekey`), so every operator gets a
-distinct enode.
+your OS — afterwards you do **not** need a `--datadir` flag.
 
 ```bash
 # macOS — data root ~/Library/Ethereum
@@ -73,18 +71,17 @@ Sync from a project bootnode. Trust is anchored by the hardcoded
 
 ```bash
 ./build/bin/geth --softspoon \
-  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304" \
+  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304,enode://54ca4dd12a7ebefcc34c1e35ee5acd213a004130b9239f38b3fcbb2ca2493d5b88616b53fb22f2afe0989474ca1f5c8af939a5b1d10857e47221fc7649e4ec3e@95.217.201.92:30303" \
   --syncmode snap
 ```
 
 ## 4. Run a node
 
-With the image restored to the default datadir, no `--datadir` is needed:
+[![asciicast](https://asciinema.org/a/8up4tdJ0VWMOMzuJ.svg)](https://asciinema.org/a/8up4tdJ0VWMOMzuJ)
 
 ```bash
 ./build/bin/geth --softspoon \
-  --http --http.api eth,net,web3
-# (optional) connect to peers: --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304"
+  --http --http.api eth,net,web3 --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304,enode://54ca4dd12a7ebefcc34c1e35ee5acd213a004130b9239f38b3fcbb2ca2493d5b88616b53fb22f2afe0989474ca1f5c8af939a5b1d10857e47221fc7649e4ec3e@95.217.201.92:30303"
 ```
 
 Verify you are on the right chain (default IPC path shown):
@@ -162,8 +159,7 @@ make geth
 - 百度网盘：https://pan.baidu.com/s/1x9wlD09ymku5w-Abs6u-bA?pwd=2517 （提取码 `2517`）
 
 压缩包内含一个 `softspoon/` 目录（`geth/`），它正是 `geth --softspoon` 默认使用的数据目录。
-按你的操作系统解压到对应的数据根目录即可——之后**无需** `--datadir`。每个节点首次启动会自动
-生成自己的唯一身份（`geth/nodekey`），因此每位运营者都会得到不同的 enode。
+按你的操作系统解压到对应的数据根目录即可——之后**无需** `--datadir`。
 
 ```bash
 # macOS —— 数据根目录 ~/Library/Ethereum
@@ -183,18 +179,17 @@ tar -xzf softspoon.tar.gz -C ~/.ethereum
 
 ```bash
 ./build/bin/geth --softspoon \
-  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304" \
+  --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304,enode://54ca4dd12a7ebefcc34c1e35ee5acd213a004130b9239f38b3fcbb2ca2493d5b88616b53fb22f2afe0989474ca1f5c8af939a5b1d10857e47221fc7649e4ec3e@95.217.201.92:30303" \
   --syncmode snap
 ```
 
 ## 4. 运行节点
 
-镜像已还原到默认数据目录，无需 `--datadir`：
+[![asciicast](https://asciinema.org/a/8up4tdJ0VWMOMzuJ.svg)](https://asciinema.org/a/8up4tdJ0VWMOMzuJ)
 
 ```bash
 ./build/bin/geth --softspoon \
-  --http --http.api eth,net,web3
-# （可选）连接对等节点：--bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304"
+  --http --http.api eth,net,web3 --bootnodes "enode://ef794a991152c3bb9f6f659a631b7b244898a196daf63304c8a863168e6be80d480a4cb0337575e754fd461b26b191b0b444dd094be212085bfd296235bb4564@95.217.104.247:30304,enode://c4d03b5f58fea266160bec11507f8b03e71523ea5dcb8b769b8a93b6010894f9821082cf4b7d638d94d6a50718673e1c06bc8c022ba682d9020858b2bc0c0b5f@188.40.138.215:30304,enode://54ca4dd12a7ebefcc34c1e35ee5acd213a004130b9239f38b3fcbb2ca2493d5b88616b53fb22f2afe0989474ca1f5c8af939a5b1d10857e47221fc7649e4ec3e@95.217.201.92:30303"
 ```
 
 验证你在正确的链上（下方为默认 IPC 路径）：
